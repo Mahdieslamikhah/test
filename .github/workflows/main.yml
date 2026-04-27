@@ -1,0 +1,23 @@
+name: Download Adobe Connect
+
+on:
+  workflow_dispatch:
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download file
+        run: |
+          curl -L -A "Mozilla/5.0" "https://www.adobe.com/go/ConnectMac11Plus" -o adobe-connect.dmg
+
+      - name: Commit file
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add adobe-connect.dmg
+          git commit -m "Add Adobe Connect"
+          git push
